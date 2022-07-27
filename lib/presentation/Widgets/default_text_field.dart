@@ -1,5 +1,4 @@
 import 'package:algoriza_task_todo/presentation/color_manager.dart';
-import 'package:algoriza_task_todo/presentation/string_manager.dart';
 import 'package:algoriza_task_todo/presentation/value_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +46,12 @@ class DefaultTextField extends StatelessWidget {
         ),
         controller: controller,
         onTap: onTap,
+        validator: (value){
+          if(value!.isEmpty){
+            return 'this field must not be Empty';
+          }
+          return null;
+        },
       ),
     );
   }

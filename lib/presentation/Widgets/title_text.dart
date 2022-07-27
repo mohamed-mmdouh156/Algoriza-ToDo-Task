@@ -1,4 +1,3 @@
-import 'package:algoriza_task_todo/presentation/color_manager.dart';
 import 'package:algoriza_task_todo/presentation/font_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

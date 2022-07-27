@@ -18,18 +18,18 @@ class ScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..createDatabase(),
       child: BlocConsumer<AppCubit , AppStates>(
         listener: (context , state) {},
         builder: (context , state) {
-
           var date = AppCubit.get(context).date;
+          var scheduleTasks = AppCubit.get(context).scheduleTasks;
 
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
                 onPressed: (){
-                  Navigator.pushReplacementNamed(context, RoutesManager.homeRoute);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back,
@@ -91,9 +91,9 @@ class ScheduleScreen extends StatelessWidget {
                             Expanded(
                               child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context , index) => ScheduleTaskItem(taskTime: '09:00 AM', taskTitle: 'Design team meeting', taskColor: ColorManager.primary),
+                                  itemBuilder: (context , index) => ScheduleTaskItem(taskTime: scheduleTasks[index]['start_time'], taskTitle: scheduleTasks[index]['title'], taskColor: scheduleTasks[index]['color']),
                                   separatorBuilder: (context , index) => const SizedBox(height: 10,),
-                                  itemCount: 5,
+                                  itemCount: scheduleTasks.length,
                               ),
                             ),
                           ],

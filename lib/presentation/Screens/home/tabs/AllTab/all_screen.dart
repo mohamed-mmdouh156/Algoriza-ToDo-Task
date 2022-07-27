@@ -1,5 +1,6 @@
 import 'package:algoriza_task_todo/app/bloc/cubit.dart';
 import 'package:algoriza_task_todo/app/bloc/state.dart';
+import 'package:algoriza_task_todo/presentation/Widgets/defualtButton.dart';
 import 'package:algoriza_task_todo/presentation/Widgets/todo_item.dart';
 import 'package:algoriza_task_todo/presentation/color_manager.dart';
 import 'package:algoriza_task_todo/presentation/font_manager.dart';
@@ -32,6 +33,8 @@ class AllScreen extends StatelessWidget {
     return BlocConsumer<AppCubit , AppStates>(
       listener: (context ,state) {},
       builder: (context ,state) {
+        //AppCubit.get(context).createDatabase();
+        List<Map> allTasks = AppCubit.get(context).allTasks;
         return Padding(
           padding: const EdgeInsets.only(top: 3),
           child: Container(
@@ -43,37 +46,19 @@ class AllScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.separated(
                       physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context , index) => ToDoItem(itemColor: colors[index] , itemText: texts[index]),
+                      itemBuilder: (context , index) => ToDoItem(itemColor: allTasks[index]['color'] , itemText: allTasks[index]['title'], id: allTasks[index]['id'] , isDone: allTasks[index]['completed'] == 1 ?true : false,),
                       separatorBuilder: (context , index) => const SizedBox(
                         height: AppSize.s8,
                       ),
-                      itemCount: texts.length,
+                      itemCount: allTasks.length,
                     ),
                   ),
                   const SizedBox(
                     height: AppSize.s12,
                   ),
-                  Container(
-                    width : double.infinity,
-                    height: AppSize.s50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      color: ColorManager.primary,
-                    ),
-                    child: MaterialButton(
-                      onPressed: (){
-                        Navigator.pushNamed(context, RoutesManager.createTeskRoute);
-                      },
-                      child: Text(
-                        'Add Task',
-                        style: GoogleFonts.lato(
-                          fontSize: FontSize.s16,
-                          fontWeight: FontWeight.w900,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                  DefaultButton(buttonText: 'Add Task', onPressed: (){
+                    Navigator.pushNamed(context, RoutesManager.createTeskRoute);
+                  }),
                   const SizedBox(
                     height: AppSize.s8,
                   ),

@@ -5,6 +5,7 @@ import 'package:algoriza_task_todo/presentation/Screens/home/tabs/CompletedTab/c
 import 'package:algoriza_task_todo/presentation/Screens/home/tabs/FavoriteTab/favorite_screen.dart';
 import 'package:algoriza_task_todo/presentation/Screens/home/tabs/UncompletedTab/uncompleted_screen.dart';
 import 'package:algoriza_task_todo/presentation/color_manager.dart';
+import 'package:algoriza_task_todo/presentation/route_manager.dart';
 import 'package:algoriza_task_todo/presentation/value_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
 
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..createDatabase(),
       child: BlocConsumer <AppCubit ,AppStates>(
         listener: (context ,state) {},
         builder: (context ,state) {
@@ -90,9 +91,11 @@ class HomeScreen extends StatelessWidget {
                 ),
                 actions: [
                   IconButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.pushNamed(context, RoutesManager.scheduleRoute);
+                    },
                     icon: Icon(
-                      Icons.search,
+                      Icons.calendar_month,
                       color: ColorManager.black,
                     ),
                   ),

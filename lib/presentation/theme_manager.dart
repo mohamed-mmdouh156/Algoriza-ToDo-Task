@@ -31,7 +31,7 @@ ThemeData getApplicationTheme ()
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       hintStyle: getRegularStyle(color: ColorManager.grey , fontSize: FontSize.s14),
-      errorStyle: getRegularStyle(color: ColorManager.error , fontSize: FontSize.s14),
+      errorStyle: getRegularStyle(color: ColorManager.red , fontSize: FontSize.s14),
       labelStyle: getMediumStyle(color: ColorManager.grey , fontSize: FontSize.s14),
 
       enabledBorder: InputBorder.none,

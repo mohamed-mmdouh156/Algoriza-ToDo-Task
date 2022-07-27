@@ -7,7 +7,7 @@ class ScheduleTaskItem extends StatefulWidget {
 
   final String taskTime;
   final String taskTitle;
-  final Color taskColor;
+  final int taskColor;
 
   const ScheduleTaskItem({
     required this.taskTime,
@@ -29,7 +29,7 @@ class _ScheduleTaskItemState extends State<ScheduleTaskItem> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSize.s16),
-        color: widget.taskColor,
+        color: Color(widget.taskColor),
       ),
       child: Row(
         children: [
