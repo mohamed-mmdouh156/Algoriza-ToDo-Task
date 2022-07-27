@@ -286,33 +286,4 @@ class AppCubit extends Cubit<AppStates> {
   }
 
 
-
-  void popUpMenuButtonFunction (value , int id)
-  {
-    switch(value)
-    {
-      case 1 : {
-       updateTaskState(completed: true, id: id);
-       break;
-      }
-      case 2 : {
-        updateTaskState(completed: false, id: id);
-        break;
-      }
-      case 3 : {
-        addToFavoriteState(isFavorite: true, id: id);
-        break;
-      }
-      case 4 : {
-        deleteDatabase(id: id);
-        break;
-      }
-    }
-    emit(AppPopUpMenuState());
-  }
-
-
-
-
-
 }
