@@ -1,5 +1,6 @@
 import 'package:algoriza_task_todo/app/bloc/cubit.dart';
 import 'package:algoriza_task_todo/app/bloc/state.dart';
+import 'package:algoriza_task_todo/data/local/notification_helper.dart';
 import 'package:algoriza_task_todo/presentation/Screens/scheduleScreen/schedule_screen.dart';
 import 'package:algoriza_task_todo/presentation/Screens/splash/splash_screen.dart';
 import 'package:algoriza_task_todo/presentation/route_manager.dart';
@@ -18,6 +19,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  var notifyHelper;
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      notifyHelper = NotifyHelper();
+      notifyHelper.initializeNotification();
+      notifyHelper.requestIOSPermissions();
+    }
+
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

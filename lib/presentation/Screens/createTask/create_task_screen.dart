@@ -1,5 +1,6 @@
 import 'package:algoriza_task_todo/app/bloc/cubit.dart';
 import 'package:algoriza_task_todo/app/bloc/state.dart';
+import 'package:algoriza_task_todo/data/local/notification_helper.dart';
 import 'package:algoriza_task_todo/presentation/Widgets/color_circle.dart';
 import 'package:algoriza_task_todo/presentation/Widgets/default_text_field.dart';
 import 'package:algoriza_task_todo/presentation/Widgets/defualtButton.dart';
@@ -13,8 +14,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateTaskScreen extends StatelessWidget {
+class CreateTaskScreen extends StatefulWidget {
   const CreateTaskScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CreateTaskScreen> createState() => _CreateTaskScreenState();
+}
+
+class _CreateTaskScreenState extends State<CreateTaskScreen> {
+
+  var notifyHelper;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+    notifyHelper.requestIOSPermissions();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -265,6 +283,12 @@ class CreateTaskScreen extends StatelessWidget {
                                   repeat: cubit.dropdownRepeatValue!,
                                   color: cubit.todoColor,
                                 ).then((value) {
+                                  notifyHelper.scheduledNotification(
+                                    id:0,
+                                    title: cubit.titleController.text,
+                                    body: cubit.remindTimeController.text,
+                                    time : cubit.startTimeController.text,
+                                  );
                                   Navigator.pop(context);
                                 });
                           }),

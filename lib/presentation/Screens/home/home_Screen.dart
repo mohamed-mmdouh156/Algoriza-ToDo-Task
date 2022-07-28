@@ -1,5 +1,6 @@
 import 'package:algoriza_task_todo/app/bloc/cubit.dart';
 import 'package:algoriza_task_todo/app/bloc/state.dart';
+import 'package:algoriza_task_todo/data/local/notification_helper.dart';
 import 'package:algoriza_task_todo/presentation/Screens/home/tabs/AllTab/all_screen.dart';
 import 'package:algoriza_task_todo/presentation/Screens/home/tabs/CompletedTab/completed_screen.dart';
 import 'package:algoriza_task_todo/presentation/Screens/home/tabs/FavoriteTab/favorite_screen.dart';
@@ -11,8 +12,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var notifyHelper;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+    notifyHelper.requestIOSPermissions();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +117,13 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      notifyHelper.displayNotification(
+                        title : 'welcome',
+                        body : 'Notification is work well'
+                      );
+                      notifyHelper.scheduledNotification();
+                    },
                     icon: Icon(
                       Icons.notifications_none,
                       color: ColorManager.black,
